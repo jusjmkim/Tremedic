@@ -5,9 +5,12 @@ var express = require('express')
     , bodyParser = require('body-parser')
     , url = require('url')
     , socket = require('socket.io')
-    , port = proccess.env.PORT || 8080
+    , http = require('http')
+    , port = process.env.PORT || 8080
     , router = express.Router()
     , app = express();
+
+require('./routes/routes.js')(app);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -18,17 +21,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.set('view engine', 'ejs');
+app.engine('html', require('ejs').renderFile);
 
 var server = http.createServer(app);
 var io = socket.listen(server);
 
-// router.route('/')
-app.use(function(req, res, next) {
-  next();
-});
+function listenToServer() {
+  server.listen(port);    
+}
 
-app.get('/', function(req, res) {
-
-});
-
-app.listen(port);
+(function() {
+  listenToServer();
+})();
