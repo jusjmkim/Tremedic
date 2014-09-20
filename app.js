@@ -1,3 +1,4 @@
+//require dependencies
 var express = require('express')
     , path = require('path')
     , favicon = require('serve-favicon')
@@ -22,6 +23,7 @@ var io = socket.listen(server);
 
 var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/parkinsons';
 
+//Listen to client
 function openClientConnection() {
   io.sockets.on('connection', function(client) {
     listenToClient(client);
@@ -39,6 +41,14 @@ function listenForPreviousData(client) {
   });
 }
 
+function listenForData(client) {
+  client.on('data', function(data) {
+    console.log(JSON.stringify(data));
+  });
+}
+
+
+//access database
 function queryForPreviousData(client) {
   Rotation.find(function(err, rotations) {
     if (err) return console.error(err);
@@ -50,12 +60,11 @@ function sendPreviousData(client, data) {
   client.emit('previousData', JSON.stringify(data));
 }
 
-function listenForData(client) {
-  client.on('data', function(data) {
-    console.log(JSON.stringify(data));
-  });
+function insertToDatabase(data) {
+  
 }
 
+//analyze data
 function parseAcceleration(client, acceleration) {
   var rotation; //define with analysis
   checkForChange(rotation);
@@ -85,6 +94,7 @@ function persistRotationData(rotationNumber) {
   rotation.save();
 }
 
+//send email
 function setupSendgrid() {
   var email = new sendgrid.Email({
     to: 'nitsuj199@gmail.com',
@@ -103,6 +113,7 @@ function sendEmail(email) {
   });
 }
 
+//send text messages
 function setupTwilio() {
   var client = new twilio.RestClient(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
@@ -119,12 +130,12 @@ function sendTwilio(client) {
   });
 }
 
+//Set up app
 function connectDatabase() {
   mongoose.connect(mongoUri);
 }
 
 function requireRoutes() {
-  //create routes
   require('./routes/routes.js')(app);
 }
 
