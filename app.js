@@ -19,17 +19,50 @@ var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb:/
 
 function openClientConnection() {
   io.sockets.on('connection', function(client) {
-    sendRotation(client);
     listenToClient(client);
   });
 }
 
 function listenToClient(client) {
-  
+  listenForPreviousData(client);
+  listenForAccelerationData(client);
 }
 
-function sendRotation(client) {
+function listenForPreviousData(client) {
+  client.on('previousData', function() {
+    queryForPreviousData(client);
+  });
+}
 
+function queryForPreviousData(client) {
+  Rotation.find()
+}
+
+function sendPreviousData(client, data) {
+  client.emit('previousData', JSON.stringify(data));
+}
+
+function listenForAccelerationData(client) {
+  client.on('acceleration', function(data) {
+    parseAcceleration(client, data);
+  });
+}
+
+function parseAcceleration(client, acceleration) {
+  sendRotationData(client);
+  persistRotationData(rotation);
+};
+
+function sendRotationData(client) {
+  var data = {
+
+  };
+  client.emit('rotationStats', JSON.stringify(data));
+}
+
+function persistRotationData(rotationNumber) {
+  var rotation = new Rotation({rotation: Number});
+  rotation.save();
 }
 
 function connectDatabase() {
