@@ -39,7 +39,10 @@ function listenForPreviousData(client) {
 }
 
 function queryForPreviousData(client) {
-  Rotation.find();
+  Rotation.find(function(err, rotations) {
+    if (err) return console.error(err);
+    sendPreviousData(client, rotations);
+  });
 }
 
 function sendPreviousData(client, data) {
