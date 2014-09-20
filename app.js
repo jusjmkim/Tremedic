@@ -8,10 +8,13 @@ var express = require('express')
     , http = require('http')
     , mongoose = require('mongoose')
     , Rotation = require('./models/models').Rotation
-    , sendgrid = require('sendgrid')()
+    , dotenv = require('dotenv')
+    , twilio = require('twilio')
     , port = process.env.PORT || 8080
     , router = express.Router()
     , app = express();
+
+dotenv.load();
 
 var server = http.createServer(app);
 var io = socket.listen(server);
@@ -36,7 +39,7 @@ function listenForPreviousData(client) {
 }
 
 function queryForPreviousData(client) {
-  Rotation.find()
+  Rotation.find();
 }
 
 function sendPreviousData(client, data) {
@@ -58,7 +61,7 @@ function parseAcceleration(client, acceleration) {
 
 function checkForChange(rotation) {
   if (thereIsChange(rotation)) {
-    sendEmail();
+    setupSendgrid();
   }
 }
 
@@ -66,8 +69,24 @@ function thereIsChange(rotation) {
 
 }
 
-function sendEmail() {
+function setupSendgrid() {
+  var sengrid = require('sendgrid')(process.env.SENDGRID_USERNAME, process.env.SENGRID_PASSWORD);
 
+  var payload = {
+    to: '',
+    from: 'hello@tremedic.com',
+    subject: 'Please check your Tremedic',
+    text: "One of your Parkinson's patients has had a change in his tremor rate, and "
+  };
+
+  sendEmail(sengrid, payload);
+}
+
+function sendEmail(sendgrid, payload) {
+  sendgrid.send(payload, function(err, json) {
+    if (err) {console.error(err);}
+    console.log(json);
+  });
 }
 
 function sendRotationData(client) {
@@ -80,6 +99,18 @@ function sendRotationData(client) {
 function persistRotationData(rotationNumber) {
   var rotation = new Rotation({rotation: Number});
   rotation.save();
+}
+
+function sendTwilio() {
+  var client = new twilio.RestClient(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+
+  client.sms.message.create({
+    to: '',
+    from: process.env.TWILIO_NUMBER,
+    body: 'Remember to put on your Myo!'
+  }, function(error, message) {
+    if (error) {console.log("There was an error");}
+  });
 }
 
 function connectDatabase() {
