@@ -10,12 +10,12 @@ var express = require('express')
     , Rotation = require('./models/models').Rotation
     , dotenv = require('dotenv')
     , twilio = require('twilio')
-    , sendgrid = require('sendgrid')(process.env.SENDGRID_USERNAME, process.env.SENDGRID_PASSWORD)
     , port = process.env.PORT || 8080
     , router = express.Router()
     , app = express();
 
 dotenv.load();
+var sendgrid = require('sendgrid')(process.env.SENDGRID_USERNAME, process.env.SENDGRID_PASSWORD)
 
 var server = http.createServer(app);
 var io = socket.listen(server);
