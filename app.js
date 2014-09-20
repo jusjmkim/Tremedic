@@ -69,7 +69,7 @@ function parseAcceleration(client, acceleration) {
   var rotation; //define with analysis
   checkForChange(rotation);
   sendRotationData(client);
-  persistRotationData(rotation);
+  insertToDatabase(rotation);
 }
 
 function checkForChange(rotation) {
@@ -89,9 +89,8 @@ function sendRotationData(client) {
   client.emit('rotationStats', JSON.stringify(data));
 }
 
-function persistRotationData(rotationNumber) {
-  var rotation = new Rotation({rotation: Number});
-  rotation.save();
+function calculateChange() {
+
 }
 
 //send email
@@ -167,5 +166,4 @@ function setupApp() {
 (function() {
   setupApp();
   openClientConnection();
-  setupSendgrid();
 })();
