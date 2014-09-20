@@ -10,6 +10,7 @@ var express = require('express')
     , Rotation = require('./models/models').Rotation
     , dotenv = require('dotenv')
     , twilio = require('twilio')
+    , sendgrid = require('sendgrid')(process.env.SENDGRID_USERNAME, process.env.SENDGRID_PASSWORD)
     , port = process.env.PORT || 8080
     , router = express.Router()
     , app = express();
@@ -72,26 +73,6 @@ function thereIsChange(rotation) {
 
 }
 
-function setupSendgrid() {
-  var sengrid = require('sendgrid')(process.env.SENDGRID_USERNAME, process.env.SENGRID_PASSWORD);
-
-  var payload = {
-    to: '',
-    from: 'hello@tremedic.com',
-    subject: 'Please check your Tremedic',
-    text: "One of your Parkinson's patients has had a change in his tremor rate, and "
-  };
-
-  sendEmail(sengrid, payload);
-}
-
-function sendEmail(sendgrid, payload) {
-  sendgrid.send(payload, function(err, json) {
-    if (err) {console.error(err);}
-    console.log(json);
-  });
-}
-
 function sendRotationData(client) {
   var data = {
 
@@ -104,11 +85,33 @@ function persistRotationData(rotationNumber) {
   rotation.save();
 }
 
-function sendTwilio() {
+function setupSendgrid() {
+  var email = new sendgrid.Email({
+    to: 'nitsuj199@gmail.com',
+    from: 'hello@tremedic.com',
+    subject: 'Please check your Tremedic',
+    text: "One of your Parkinson's patients has had a change in his tremor rate, and you should check on him/her."
+  });
+
+  sendEmail(email);
+}
+
+function sendEmail(email) {
+  sendgrid.send(email, function(err, json) {
+    if (err) {console.error(err);}
+    console.log(json);
+  });
+}
+
+function setupTwilio() {
   var client = new twilio.RestClient(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
-  client.sms.message.create({
-    to: '',
+  sendTwilio(client);
+}
+
+function sendTwilio(client) {
+  client.sms.messages.create({
+    to: '2016321315',
     from: process.env.TWILIO_NUMBER,
     body: 'Remember to put on your Myo!'
   }, function(error, message) {
@@ -153,4 +156,5 @@ function setupApp() {
 (function() {
   setupApp();
   openClientConnection();
+  setupSendgrid();
 })();
