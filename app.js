@@ -4,6 +4,7 @@ var express = require('express')
     , cookieParser = require('cookie-parser')
     , bodyParser = require('body-parser')
     , url = require('url')
+    , socket = require('socket.io')
     , port = proccess.env.PORT || 8080
     , router = express.Router()
     , app = express();
@@ -18,9 +19,16 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+var server = http.createServer(app);
+var io = socket.listen(server);
 
 // router.route('/')
+app.use(function(req, res, next) {
+  next();
+});
 
-app.use('/', router);
+app.get('/', function(req, res) {
+
+});
 
 app.listen(port);
