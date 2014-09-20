@@ -8,6 +8,7 @@ var express = require('express')
     , http = require('http')
     , mongoose = require('mongoose')
     , Rotation = require('./models/models').Rotation
+    , sendgrid = require('sendgrid')()
     , port = process.env.PORT || 8080
     , router = express.Router()
     , app = express();
@@ -49,9 +50,25 @@ function listenForAccelerationData(client) {
 }
 
 function parseAcceleration(client, acceleration) {
+  var rotation; //define with analysis
+  checkForChange(rotation);
   sendRotationData(client);
   persistRotationData(rotation);
-};
+}
+
+function checkForChange(rotation) {
+  if (thereIsChange(rotation)) {
+    sendEmail();
+  }
+}
+
+function thereIsChange(rotation) {
+
+}
+
+function sendEmail() {
+
+}
 
 function sendRotationData(client) {
   var data = {
