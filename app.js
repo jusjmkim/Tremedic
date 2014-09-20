@@ -6,31 +6,57 @@ var express = require('express')
     , url = require('url')
     , socket = require('socket.io')
     , http = require('http')
+    , mongoose = require('mongoose')
     , port = process.env.PORT || 8080
     , router = express.Router()
     , app = express();
 
-require('./routes/routes.js')(app);
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-app.set('view engine', 'ejs');
-app.engine('html', require('ejs').renderFile);
-
 var server = http.createServer(app);
 var io = socket.listen(server);
+
+var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/parkinsons';
+
+function openClientConnection() {
+  io.sockets.on('connection', function(client) {
+
+  });
+}
+
+function connectDatabase() {
+  mongoose.connect(mongoUri);
+}
+
+function requireRoutes() {
+  //create routes
+  require('./routes/routes.js')(app);
+}
+
+function configureViews() {
+  // view engine setup
+  app.set('views', path.join(__dirname, 'views'));
+
+  // uncomment after placing your favicon in /public
+  //app.use(favicon(__dirname + '/public/favicon.ico'));
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(cookieParser());
+  app.use(express.static(path.join(__dirname, 'public')));
+  app.set('view engine', 'ejs');
+  app.engine('html', require('ejs').renderFile);
+}
 
 function listenToServer() {
   server.listen(port);    
 }
 
-(function() {
+function setupApp() {
+  connectDatabase();
+  requireRoutes();
+  configureViews();
   listenToServer();
+}
+
+(function() {
+  setupApp();
+  openClientConnection();
 })();
