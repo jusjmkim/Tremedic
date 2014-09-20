@@ -5,7 +5,8 @@ var RotationSchema = new mongoose.Schema({
     type: Number
   },
   timePoint: {
-    { type: Date, default: Date.now }
+    type: Date,
+    default: Date.now
   }
 });
 
