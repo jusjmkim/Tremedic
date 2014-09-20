@@ -31,6 +31,7 @@ function listenForPreviousData() {
 
 var gyroscopeData = {};
 var accelerometerData = {};
+var dataInterval = 100; // milliseconds
 
 function getTime() {
   var ms = new Date().getTime();
@@ -66,4 +67,4 @@ Myo.on('imu', function(data){
 
 });
 
-setInterval(sendDataToServer, 500);
+setInterval(sendDataToServer, dataInterval);

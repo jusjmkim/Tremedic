@@ -30,7 +30,7 @@ function openClientConnection() {
 
 function listenToClient(client) {
   listenForPreviousData(client);
-  listenForAccelerationData(client);
+  listenForData(client);
 }
 
 function listenForPreviousData(client) {
@@ -50,9 +50,9 @@ function sendPreviousData(client, data) {
   client.emit('previousData', JSON.stringify(data));
 }
 
-function listenForAccelerationData(client) {
-  client.on('acceleration', function(data) {
-    parseAcceleration(client, data);
+function listenForData(client) {
+  client.on('data', function(data) {
+    console.log(JSON.stringify(data));
   });
 }
 
