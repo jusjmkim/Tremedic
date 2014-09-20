@@ -29,12 +29,20 @@ function listenForPreviousData() {
 
 /** Myo Functionality **/
 
-var getTime = function() {
+var gyroscopeData = {};
+var accelerometerData = {};
+
+function getTime() {
   var ms = new Date().getTime();
-  return parseInt(ms / 1000);
+  return ms / 1000;
 } 
 
-var gyroscopeData, accelerometerData;
+function sendDataToServer() {
+  console.log(gyroscopeData);
+  console.log(accelerometerData);
+  server.emit('data', {'gyroscopeData': gyroscopeData, 
+                       'accelerometerData': accelerometerData});
+}
 
 Myo.start();
 
@@ -58,7 +66,4 @@ Myo.on('imu', function(data){
 
 });
 
-setInterval(function(){
-  console.log(gyroscopeData);
-  console.log(accelerometerData);
-}, 500);
+setInterval(sendDataToServer, 500);
