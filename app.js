@@ -7,6 +7,7 @@ var express = require('express')
     , socket = require('socket.io')
     , http = require('http')
     , mongoose = require('mongoose')
+    , Rotation = require('./models/models').Rotation
     , port = process.env.PORT || 8080
     , router = express.Router()
     , app = express();
@@ -18,8 +19,17 @@ var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb:/
 
 function openClientConnection() {
   io.sockets.on('connection', function(client) {
-
+    sendRotation(client);
+    listenToClient(client);
   });
+}
+
+function listenToClient(client) {
+  
+}
+
+function sendRotation(client) {
+
 }
 
 function connectDatabase() {
