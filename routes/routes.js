@@ -10,9 +10,4 @@ module.exports = function(app) {
   app.get('/report', function(req, res) {
     res.render('report.html')
   });
-
-  app.post('/report', function(req, res) {
-    var data = req.body; //fix this
-    parseRawData(data);
-  });
 };

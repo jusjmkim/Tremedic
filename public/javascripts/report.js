@@ -11,10 +11,6 @@ function listenForStats() {
   });
 }
 
-function queryForPreviousData() {
-  server.emit('previousData', {});
-}
-
 function listenForPreviousData() {
   server.on('previousData', function(data) {
   var previousData = JSON.parse(data);
@@ -23,7 +19,6 @@ function listenForPreviousData() {
 
 (function() {
   listenForStats();
-  queryForPreviousData();
   listenForPreviousData();
 })();
 
