@@ -15,16 +15,16 @@ $(function () {
 
       series: [{
           name: 'Tremor Frequency',
-          data: [[times - 100s, 2.7],
-                 [times - 90s, 2.9],
-                 [times - 80s, 2.4],
-                 [times - 70s, 2.3],
-                 [times - 60s, 2.0],
-                 [times - 50s, 2.1],
-                 [times - 40s, 2.13],
-                 [times - 30s, 2.07],
-                 [times - 20s, 2.18],
-                 [times - 10s, 2.02],
+          data: [[time - 10000000*1000, 2.7],
+                 [time - 9000000*1000, 2.9],
+                 [time - 8000000*1000, 2.4],
+                 [time - 7000000*1000, 2.3],
+                 [time - 6000000*1000, 2.0],
+                 [time - 5000000*1000, 2.1],
+                 [time - 4000000*1000, 2.13],
+                 [time - 3000000*1000, 2.07],
+                 [time - 2000000*1000, 2.18],
+                 [time - 1000000*1000, 2.02],
                 ],
           type: 'spline',
       }]
@@ -32,25 +32,33 @@ $(function () {
 });
 
 $(function () {
-    $.getJSON('http://www.highcharts.com/samples/data/jsonp.php?filename=msft-c.json&callback=?', function (data) {
+  var time = (new Date()).getTime();
 
-        // Create the chart
-        $('#chart-magnitude').highcharts('StockChart', {
+$('#chart-magnitude').highcharts('StockChart', {
 
-            rangeSelector: {
-                inputEnabled: $('#chart-magnitude').width() > 480,
-                selected: 1
-            },
+    rangeSelector: {
+        inputEnabled: $('#chart-magnitude').width() > 480,
+        selected: 1
+    },
 
-            title: {
-                text: 'Mean Tremor Magnitude (°/sec)'
-            },
+    title: {
+        text: 'Mean Tremor Magnitude (°/sec)'
+    },
 
-            series: [{
-                name: 'Tremor Magnitude',
-                data: data,
-                type: 'spline',
-            }]
-        });
-    });
+    series: [{
+        name: 'Tremor Magnitude',
+        data: [[time - 10000000*1000, 85],
+                 [time - 9000000*1000, 85],
+                 [time - 8000000*1000, 85],
+                 [time - 7000000*1000, 85],
+                 [time - 6000000*1000, 85],
+                 [time - 5000000*1000, 85],
+                 [time - 4000000*1000, 85],
+                 [time - 3000000*1000, 85],
+                 [time - 2000000*1000, 85],
+                 [time - 1000000*1000, 85],
+                ],
+        type: 'spline',
+    }]
+  });
 });
