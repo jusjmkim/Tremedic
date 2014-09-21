@@ -326,7 +326,7 @@ h2.features {
 
 .profile {
 	margin: 0 auto;
-	width: 700px;
+	width: 900px;
 	font-family: Open Sans, sans-serif;
 }
 
@@ -334,6 +334,8 @@ h2.features {
 	border-top: 1px solid #eaeaea;
 	border-bottom: 1px solid #eaeaea;
 	padding: 35px;
+	background:  #2C3643;
+	color: #fff;
 }
 
 .bold {
@@ -347,12 +349,12 @@ h2.features {
 }
 
 .name {
-	background: url(../images/usersmall.png) no-repeat left;
+	background: url(../images/usersmallw.png) no-repeat left;
 	padding-left: 24px;
 }
 
 .dob {
-	background: url(../images/papersmall.png) no-repeat left;
+	background: url(../images/papersmallw.png) no-repeat left;
 	padding-left: 24px;
 }
 
@@ -369,6 +371,26 @@ h2.features {
 	border-radius: 20px;
 	padding: 10px;
 	margin-bottom: 0;
+	color: #fff;
+}
+
+#history {
+	display: inline;
+	width: 140px;
+	text-align: center;
+	background: none;
+	border: 1px solid #607691;
+	border-radius: 20px;
+	padding: 10px;
+	margin-bottom: 0;
+	color: #fff;
+	background: #607691;
+	margin-right: 10px;
+}
+
+#history:hover {
+	border: 1px solid #4A5B71;
+	background: #4A5B71;
 }
 
 #logout:hover {
@@ -430,6 +452,7 @@ h2.features {
 	border: 1px solid #ccc;
 	border-radius: 20px;
 	padding: 10px;
+
 }
 
 #yolo:hover {
