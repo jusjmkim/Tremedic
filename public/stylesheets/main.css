@@ -376,7 +376,7 @@ h2.features {
 }
 
 #datawrap {
-	width: 600px;
+	width: 700px;
 	margin: 30px auto;
 	overflow: hidden;
 	padding: 60px;
@@ -421,6 +421,35 @@ h2.features {
 	text-align: center;
 	padding: 30px;
 	display: none;
+}
+
+#yolo {
+	margin: 20px auto;
+	width: 170px;
+	background: none;
+	border: 1px solid #ccc;
+	border-radius: 20px;
+	padding: 10px;
+	margin-bottom: 0;
+}
+
+#yolo:hover {
+	border: 1px solid #333;
+}
+
+#chart {
+	padding-top: 40px;
+	margin: 0 auto;
+	width: 80%;
+	border-bottom: 1px solid #eaeaea;
+	padding-bottom: 40px;
+}
+
+
+tspan {
+	font-size: 25px;
+	font-family: Montserrat;
+	letter-spacing: -1px;
 }
 /* ===============
     ALL: IE Fixes
