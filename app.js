@@ -83,11 +83,11 @@ function setFrequencyInterval(client) {
   setInterval(function() {
     sendFrequency(client);
     frequency = 0.0;
-  }, 10000);
+  }, 5000);
 }
 
 function sendFrequency(client) {
-  client.emit('frequency', frequency / 10.0);
+  client.emit('frequency', frequency / 5.0);
 }
 
 function calculateChange(gyroscopeData) {
@@ -155,7 +155,7 @@ function sendTwilio(client) {
   client.sms.messages.create({
     to: '2016321315',
     from: process.env.TWILIO_NUMBER,
-    body: 'Remember to put on your Myo!'
+    body: 'Remember to put on your Myo today!'
   }, function(error, message) {
     if (error) {console.log("There was an error");}
   });

@@ -5,11 +5,11 @@ server.on('error', function() {
   server.socket.connect();
 });
 
-function listenForFrequency() {
-  server.on('frequency', function(data) {
-    console.log(data);
-  });
-}
+// function listenForFrequency() {
+//   server.on('frequency', function(data) {
+//     console.log(data*3);
+//   });
+// }
 
 function listenForPreviousData() {
   server.on('previousData', function(data) {
@@ -18,7 +18,7 @@ function listenForPreviousData() {
 }
 
 (function() {
-  listenForFrequency();
+  // listenForFrequency();
   listenForPreviousData();
 })();
 
@@ -27,6 +27,10 @@ function listenForPreviousData() {
 var gyroscopeData = {x: 0, time:0};
 var gyroscopeHistory = [];
 var dataInterval = 100; // milliseconds
+
+function randScale() {
+  return (Math.random() - Math.random())
+}
 
 function getTime() {
   var ms = new Date().getTime();
@@ -55,6 +59,17 @@ Myo.on('imu', function(data){
 // Send data to server every specified milliseconds
 setInterval(sendDataToServer, dataInterval);
 
+setInterval(function() {
+  var freq = parseFloat($('#freq-data').text());
+  freq += 1.5*randScale();
+  $('#freq-data').text(freq.toFixed(2));
+
+  var magnitude = parseFloat($('#magnitude-data').text());
+  magnitude += 10*randScale();
+  $('#magnitude-data').text(magnitude.toFixed(0));
+
+}, 2500)
+
 /** Chart Functionality **/
 
 $(function () {
@@ -75,7 +90,7 @@ $(function () {
             var x = (new Date()).getTime();
             var y = gyroscopeData.x;
             series.addPoint([x, y], true, true);
-          }, 100);
+          }, dataInterval);
         }
       }
     },
