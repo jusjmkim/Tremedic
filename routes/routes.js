@@ -7,6 +7,10 @@ module.exports = function(app) {
     res.render('login.html');
   });
 
+  app.get('/live', function(req, res) {
+    res.render('live.html')
+  });
+
   app.get('/report', function(req, res) {
     res.render('report.html')
   });

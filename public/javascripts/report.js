@@ -45,9 +45,8 @@ $(function() {
 
 /** Myo Functionality **/
 
-var gyroscopeData = {};
+var gyroscopeData = {x: 0, time:0};
 var gyroscopeHistory = [];
-var gyroscopeHistorySmall = [];
 var dataInterval = 100; // milliseconds
 
 function getTime() {
@@ -96,7 +95,6 @@ $(function () {
           setInterval(function () {
             var x = (new Date()).getTime();
             var y = gyroscopeData.x;
-            console.log(y)
             series.addPoint([x, y], true, true);
           }, 100);
         }
@@ -121,7 +119,7 @@ $(function () {
     },
 
     title : {
-      text : 'Current Tremor Magnitude (deg/sec)'
+      text : 'Current Tremor Magnitude (°/sec)'
     },
 
     exporting: {
@@ -143,7 +141,8 @@ $(function () {
         }
 
         return data;
-      }())
+      }()),
+      type: 'spline'
     }]
   });
 });
