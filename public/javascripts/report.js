@@ -98,7 +98,7 @@ $(function () {
     },
 
     title : {
-      text : 'Current Tremor Magnitude (deg/sec)'
+      text : 'Current Tremor Magnitude (°/sec)'
     },
 
     exporting: {
@@ -120,7 +120,8 @@ $(function () {
         }
 
         return data;
-      }())
+      }()),
+      type: 'spline'
     }]
   });
 });

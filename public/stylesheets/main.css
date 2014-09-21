@@ -374,7 +374,7 @@ h2.features {
 	color: #fff;
 }
 
-#history {
+#history, #report {
 	display: inline;
 	width: 140px;
 	text-align: center;
@@ -388,7 +388,11 @@ h2.features {
 	margin-right: 10px;
 }
 
-#history:hover {
+#report {
+    width: 130px;
+}
+
+#history:hover, #report:hover {
 	border: 1px solid #4A5B71;
 	background: #4A5B71;
 }
@@ -445,17 +449,34 @@ h2.features {
 	display: none;
 }
 
-#yolo {
-	margin: 20px auto 0px;
+.secret-block {
+    display: table;
+    margin: auto;
+    border: none;
+    text-align: center;
+}
+
+.secret-title {
+    font-size: 20px;
+    font-weight: 300;
+    margin-top: 20px;
+}
+
+.secret {
+	margin: 10px auto 0px;
 	width: 170px;
 	background: none;
 	border: 1px solid #ccc;
 	border-radius: 20px;
 	padding: 10px;
-
+    display: inline;
 }
 
-#yolo:hover {
+.secret.text{
+    width: 190px;
+}
+
+.secret:hover {
 	border: 1px solid #333;
 }
 

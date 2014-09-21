@@ -3,14 +3,14 @@
     <head>
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-      <title>History | Tremedic</title>
+      <title>Report | Tremedic</title>
       <meta name="description" content="">
       <meta name="viewport" content="width=device-width">
-        <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
-        <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+  		<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+  		<link rel="icon" href="/images/favicon.ico" type="image/x-icon">
       <link rel="stylesheet" href="/stylesheets/normalize.min.css">
       <link rel="stylesheet" href="/stylesheets/main.css">
-        <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+  		<link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
       <script src="/javascripts/modernizr-2.6.2-respond-1.1.0.min.js"></script>
       <script type="text/javascript" src="/socket.io/socket.io.js"></script>
@@ -19,31 +19,28 @@
     </head>
 
     <body>
-      <div class="branding"><img src="images/logo.png" alt="logo"/></div>     
+  	  <div class="branding"><img src="images/logo.png" alt="logo"/></div>     
       <div class="profilewrap">
         <div class="profile">
           <span class="name"><span class="bold">Name:</span> John Green</span>
           <span class="dob"><span class="bold">DOB:</span> 09/20/1950</span>
           <span class="phone"><span class="bold">Phone:</span> 519 231 1942</span>
-           <a href="live"><input name="" type="button" value="View Live " id="report" ></a>
-             <a href="/"><input name="" type="button" value="Logout" id="logout" ></a>
+           <a href="report"><input name="" type="button" value="View Report " id="history" ></a>
+         	 <a href="/"><input name="" type="button" value="Logout" id="logout" ></a>
         </div>
       </div>
-      <div id="chartwrap">
-        <div id="chart"></div>
+<div id="chartwrap">
+      <div id="chart"></div>
       </div>
       
-    <div class="error">We detected a significant change in your tremor rate. An email has been sent to your doctor.</div>
+      <div id="datawrap">      
+        <div class="data"><span class="tremor-data">17</span> Mean Tremor Magnitude</div>
+          <div class="data"><span class="tremor-data">20</span> Mean Tremor Frequency</div>
+        <div class="data"><span class="duration-data">1:30</span>Time Elapsed (hr)</div>
+      </div>
 
-    <div class="secret-block">
-      <div class="secret-title">Secret Menu</div>
-      <input name="" type="button" value="Send Morning Text" class="secret text" id="text-button">
-      &nbsp;
-      <input name="" type="button" value="Send Alert Email" class="secret" >
-    </div>
-    
 <footer>
-    
+	
 <div class="copyright">Copyright © 2014 Tremedic</div>
   
 </footer>
