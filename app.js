@@ -65,7 +65,8 @@ function insertToDatabase(data) {
 }
 
 //analyze data
-function parseAcceleration(client, acceleration) {
+function parseGyroscopeData(client, gyroscopeData) {
+  calculateChange(gyroscopeData);
   var rotation; //define with analysis
   checkForChange(rotation);
   sendRotationData(client);
@@ -89,8 +90,23 @@ function sendRotationData(client) {
   client.emit('rotationStats', JSON.stringify(data));
 }
 
-function calculateChange() {
+function calculateChange(gyroscopeData) {
+  var gyroscopeDataX = gyroscopeData.x;
+  var lastGyroscopeData = findLastGyroscopeData();
+  var currentSlope = gyroscopeDataX - lastGyroscopeData;
 
+}
+
+function findLastGyroscopeData() {
+  var lastGyroscopeData;
+  Rotation.findOne({}, {}, {sort:{'created_at': -1}}, function(err, data) {
+    if (err) {
+      lastGyroscopeData = 0;
+    } else {
+      lastGyroscopeData = data;
+    }
+  });
+  return lastGyroscopeData;
 }
 
 //send email

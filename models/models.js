@@ -10,8 +10,14 @@ var RotationSchema = new mongoose.Schema({
   }
 });
 
-var Rotation = mongoose.model('Rotation', RotationSchema);
+var SlopeSchema = new mongoose.Schema({
+  slope: {type: Number}
+});
+
+var Rotation = mongoose.model('Rotation', RotationSchema)
+    , Slope = mongoose.model('Slope', SlopeSchema);
 
 module.exports = {
-  Rotation: Rotation
+  Rotation: Rotation,
+  Slope: Slope
 };
