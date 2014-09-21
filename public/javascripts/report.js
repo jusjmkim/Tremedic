@@ -6,8 +6,8 @@ server.on('error', function() {
 });
 
 function listenForStats() {
-  server.on('rotationStats', function(data) {
-  var rotationStats = JSON.parse(data);
+  server.on('frequency', function(data) {
+    console.log(data);
   });
 }
 
