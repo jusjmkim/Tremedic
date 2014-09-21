@@ -533,7 +533,16 @@ h2.features {
    ========================================================================== */
 
 
-
+ul {
+    font-family: Open Sans;
+    font-size: 17px;
+    text-shadow: none;
+    font-weight: normal;
+    color: #333;
+    line-height: 200%;
+    width: 600px;
+    margin: 0 auto;
+}
 
 
 
