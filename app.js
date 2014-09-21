@@ -20,22 +20,20 @@ var server = http.createServer(app);
 var io = socket.listen(server);
 
 var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/parkinsons';
+mongoose.connect(mongoUri);
+var conn = mongoose.connection;
 
 //Listen to client
 function openClientConnection() {
   io.sockets.on('connection', function(client) {
-    listenToClient(client);
+    listenForData(client);
     queryForPreviousData(client);
   });
 }
 
-function listenToClient(client) {
-  listenForData(client);
-}
-
 function listenForData(client) {
   client.on('data', function(data) {
-    console.log(JSON.stringify(data));
+    parseGyroscopeData(client, JSON.parse(data));
   });
 }
 
@@ -52,7 +50,15 @@ function sendPreviousData(client, data) {
 }
 
 function insertToDatabase(data) {
-  
+  var newRotation = new Rotation(data);
+  newRotation.save(data);
+  findFirstData();
+}
+
+function findFirstData() {
+  Rotation.find(function(err, data) {
+    console.log(data);
+  });
 }
 
 //analyze data
@@ -90,7 +96,7 @@ function calculateChange(gyroscopeData) {
 
 function findLastGyroscopeData() {
   var lastGyroscopeData;
-  Rotation.findOne({}, {}, {sort:{'created_at': -1}}, function(err, data) {
+  conn.collection('Rotation').findOne({}, {}, {sort:{'created_at': -1}}, function(err, data) {
     if (err) {
       lastGyroscopeData = 0;
     } else {
@@ -137,10 +143,6 @@ function sendTwilio(client) {
 }
 
 //Set up app
-function connectDatabase() {
-  mongoose.connect(mongoUri);
-}
-
 function requireRoutes() {
   require('./routes/routes.js')(app);
 }
@@ -164,7 +166,6 @@ function listenToServer() {
 }
 
 function setupApp() {
-  connectDatabase();
   requireRoutes();
   configureViews();
   listenToServer();
