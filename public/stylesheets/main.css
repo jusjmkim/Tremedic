@@ -422,6 +422,21 @@ h2.features {
 	padding: 30px;
 	display: none;
 }
+
+#yolo {
+	margin: 20px auto;
+	width: 170px;
+	background: none;
+	border: 1px solid #ccc;
+	border-radius: 20px;
+	padding: 10px;
+	margin-bottom: 0;
+}
+
+#yolo:hover {
+	border: 1px solid #333;
+}
+
 /* ===============
     ALL: IE Fixes
    =============== */
