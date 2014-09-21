@@ -17,10 +17,31 @@ function listenForPreviousData() {
   });
 }
 
+function listenToSendEmail() {
+  $("#yolo").click(function(event) {
+    event.preventDefault();
+
+    server.emit('sendEmail');
+  });
+}
+
+function listenToSendText() {
+  $("#text-button").click(function(event) {
+    event.preventDefault();
+
+    server.emit('sendText');
+  });
+}
+
 (function() {
   listenForStats();
   listenForPreviousData();
 })();
+
+$(function() {
+  listenToSendEmail();
+  listenToSendText();
+});
 
 /** Myo Functionality **/
 

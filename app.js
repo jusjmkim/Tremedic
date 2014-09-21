@@ -26,9 +26,15 @@ var conn = mongoose.connection;
 //Listen to client
 function openClientConnection() {
   io.sockets.on('connection', function(client) {
-    listenForData(client);
+    listenToClient(client);
     queryForPreviousData(client);
   });
+}
+
+function listenToClient(client) {
+  listenForData(client);
+  listenToSendEmail(client);
+  listenToSendText(client);
 }
 
 function listenForData(client) {
@@ -65,19 +71,8 @@ function findFirstData() {
 function parseGyroscopeData(client, gyroscopeData) {
   calculateChange(gyroscopeData);
   var rotation; //define with analysis
-  checkForChange(rotation);
   sendRotationData(client);
   //insertToDatabase(rotation);
-}
-
-function checkForChange(rotation) {
-  if (thereIsChange(rotation)) {
-    setupSendgrid();
-  }
-}
-
-function thereIsChange(rotation) {
-  
 }
 
 function sendRotationData(client) {
@@ -107,6 +102,12 @@ function findLastGyroscopeData() {
 }
 
 //send email
+function listenToSendEmail(client) {
+  client.on('sendEmail', function() {
+    setupSendgrid();
+  });
+}
+
 function setupSendgrid() {
   var email = new sendgrid.Email({
     to: 'nitsuj199@gmail.com',
@@ -126,6 +127,12 @@ function sendEmail(email) {
 }
 
 //send text messages
+function listenToSendText(client) {
+  client.on('sendText', function() {
+    setupTwilio();
+  });
+}
+
 function setupTwilio() {
   var client = new twilio.RestClient(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
