@@ -5,12 +5,6 @@ server.on('error', function() {
   server.socket.connect();
 });
 
-function listenForStats() {
-  server.on('frequency', function(data) {
-    console.log(data);
-  });
-}
-
 function listenForPreviousData() {
   server.on('previousData', function(data) {
   var previousData = JSON.parse(data);
@@ -18,7 +12,7 @@ function listenForPreviousData() {
 }
 
 (function() {
-  listenForStats();
+  listenForFrequency();
   listenForPreviousData();
 })();
 
