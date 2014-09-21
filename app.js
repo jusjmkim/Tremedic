@@ -19,7 +19,7 @@ var sendgrid = require('sendgrid')(process.env.SENDGRID_USERNAME, process.env.SE
 var server = http.createServer(app);
 var io = socket.listen(server);
 
-var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/parkinsons';
+var mongoUri = process.env.MONGOLAB_URI || 'mongodb://localhost/parkinsons';
 mongoose.connect(mongoUri);
 var conn = mongoose.connection;
 
