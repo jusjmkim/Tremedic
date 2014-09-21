@@ -80,7 +80,7 @@ function parseGyroscopeData(client, gyroscopeData) {
 }
 
 function setFrequencyInterval(client) {
-  setTimeout(function() {
+  setInterval(function() {
     sendFrequency(client);
     frequency = 0.0;
   }, 10000);
