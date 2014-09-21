@@ -8,6 +8,7 @@ var express = require('express')
     , http = require('http')
     , mongoose = require('mongoose')
     , Rotation = require('./models/models').Rotation
+    , Slope = require('./models/models').Slope
     , dotenv = require('dotenv')
     , twilio = require('twilio')
     , port = process.env.PORT || 8080
@@ -22,6 +23,8 @@ var io = socket.listen(server);
 var mongoUri = process.env.MONGOLAB_URI || 'mongodb://localhost/parkinsons';
 mongoose.connect(mongoUri);
 var conn = mongoose.connection;
+
+var frequency = 0;
 
 //Listen to client
 function openClientConnection() {
@@ -39,7 +42,7 @@ function listenToClient(client) {
 
 function listenForData(client) {
   client.on('data', function(data) {
-    //parseGyroscopeData(client, JSON.parse(data));
+    parseGyroscopeData(client, data);
   });
 }
 
@@ -55,50 +58,59 @@ function sendPreviousData(client, data) {
   client.emit('previousData', JSON.stringify(data));
 }
 
-function insertToDatabase(data) {
+function insertToRotationDatabase(data) {
   var newRotation = new Rotation(data);
   newRotation.save(data);
-  findFirstData();
 }
 
-function findFirstData() {
-  Rotation.find(function(err, data) {
-    console.log(data);
-  });
+function insertToSlopeDatabase(data) {
+  var newSlope = new Slope(data);
+  newSlope.save(data);
+}
+
+function insertToDatabase(rotation, slope) {
+  insertToRotationDatabase(rotation);
+  insertToSlopeDatabase(slope);
 }
 
 //analyze data
 function parseGyroscopeData(client, gyroscopeData) {
   calculateChange(gyroscopeData);
-  var rotation; //define with analysis
-  sendRotationData(client);
-  //insertToDatabase(rotation);
+  setFrequencyInterval(client);
 }
 
-function sendRotationData(client) {
-  var data = {
+function setFrequencyInterval(client) {
+  setTimeOut(function() {
+    sendFrequency(client);
+    frequency = 0;
+  }, 10000);
+}
 
-  };
-  client.emit('rotationStats', JSON.stringify(data));
+function sendFrequency(client) {
+  client.emit('frequency', frequency);
 }
 
 function calculateChange(gyroscopeData) {
-  var gyroscopeDataX = gyroscopeData.x;
-  var lastGyroscopeData = findLastGyroscopeData();
-  var currentSlope = gyroscopeDataX - lastGyroscopeData;
-
+  var lastGyroscopeData = findLastData('Rotation');
+  var currentSlope = gyroscopeData - lastGyroscopeData;
+  incrementFrequency(compareSlopes(currentSlope, FindLastData('Slope')));
+  insertToDatabase(gyroscopeData, currentSlope);
 }
 
-function findLastGyroscopeData() {
-  var lastGyroscopeData;
-  conn.collection('Rotation').findOne({}, {}, {sort:{'created_at': -1}}, function(err, data) {
-    if (err) {
-      lastGyroscopeData = 0;
-    } else {
-      lastGyroscopeData = data;
-    }
+function compareSlopes(currentSlope, pastSlope) {
+  return (currentSlope > 0 && pastSlope > 0) || (currentSlope < 0 && pastSlope);
+}
+
+function incrementFrequency(extrema) {
+  if (!extrema) { frequency++; }
+}
+
+function findLastData(collection) {
+  var lastData;
+  conn.collection(collection).findOne({}, {}, {sort:{'created_at': -1}}, function(err, data) {
+    lastData = err ? 0 : data;
   });
-  return lastGyroscopeData;
+  return lastData;
 }
 
 //send email
