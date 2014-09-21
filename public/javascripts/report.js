@@ -7,13 +7,13 @@ server.on('error', function() {
 
 function listenForStats() {
   server.on('rotationStats', function(data) {
-    var rotationStats = JSON.parse(data);
+  var rotationStats = JSON.parse(data);
   });
 }
 
 function listenForPreviousData() {
   server.on('previousData', function(data) {
-    var previousData = JSON.parse(data);
+  var previousData = JSON.parse(data);
   });
 }
 
@@ -25,7 +25,8 @@ function listenForPreviousData() {
 /** Myo Functionality **/
 
 var gyroscopeData = {};
-var accelerometerData = {};
+var gyroscopeHistory = [];
+var gyroscopeHistorySmall = [];
 var dataInterval = 100; // milliseconds
 
 function getTime() {
@@ -35,31 +36,94 @@ function getTime() {
 
 function sendDataToServer() {
   console.log(gyroscopeData);
-  console.log(accelerometerData);
-  server.emit('data', {'gyroscopeData': gyroscopeData, 
-                       'accelerometerData': accelerometerData});
+  server.emit('data', {'gyroscopeData': gyroscopeData});
 }
 
 Myo.start();
 
 Myo.on('imu', function(data){
-
-  timestamp = getTime();
+  // On new inertial measurement unit value
+  // Get current gyroscope & accelerometer values
 
   gyroscopeData = {
-    x: data.gyroscope.x,
-    y: data.gyroscope.y,
-    z: data.gyroscope.z,
-    time: timestamp
+  x: data.gyroscope.x,
+  time: getTime()
   };
 
-  accelerometerData = {
-    x: data.accelerometer.x,
-    y: data.accelerometer.y,
-    z: data.accelerometer.z,
-    time: timestamp
-  };
-
+  // Save points to history
+  gyroscopeHistory.push(gyroscopeData);
 });
 
+// Send data to server every specified milliseconds
 setInterval(sendDataToServer, dataInterval);
+
+/** Chart Functionality **/
+
+$(function () {
+  Highcharts.setOptions({
+    global : {
+      useUTC : true
+    }
+  });
+
+  // Create the chart
+  $('#chart').highcharts('StockChart', {
+    chart : {
+      events : {
+        load : function () {
+          // set up the updating of the chart each second
+          var series = this.series[0];
+          setInterval(function () {
+            var x = (new Date()).getTime();
+            var y = Math.round(Math.random() * 100);
+            console.log(x, y)
+            series.addPoint([x, y], true, true);
+          }, 100);
+        }
+      }
+    },
+
+    rangeSelector: {
+      buttons: [{
+        count: 10,
+        type: 'second',
+        text: '10s'
+      }, {
+        count: 30,
+        type: 'second',
+        text: '30s'
+      }, {
+        type: 'all',
+        text: 'All'
+      }],
+      inputEnabled: false,
+      selected: 0
+    },
+
+    title : {
+      text : 'Current Tremor Magnitude (deg/sec)'
+    },
+
+    exporting: {
+      enabled: false
+    },
+
+    series : [{
+      name : 'Tremor Magnitude',
+      data : (function () {
+        // generate an array of random data
+        var data = [];
+        var time = (new Date()).getTime();
+
+        for (var i = -999; i <= 0; i += 1) {
+          data.push([
+            time + i * 1000,
+            Math.round(Math.random() * 300)
+          ]);
+        }
+
+        return data;
+      }())
+    }]
+  });
+});
