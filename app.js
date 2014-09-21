@@ -106,7 +106,7 @@ function setupSendgrid() {
     to: 'nitsuj199@gmail.com',
     from: 'hello@tremedic.com',
     subject: 'Please check your Tremedic',
-    text: "One of your Parkinson's patients has had a change in his tremor rate, and you should check on him/her."
+    text: "One of your Parkinson's patients has had a change in his tremor rate, and you should check on him."
   });
 
   sendEmail(email);
