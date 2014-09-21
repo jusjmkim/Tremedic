@@ -18,7 +18,7 @@ function listenForPreviousData() {
 }
 
 function listenToSendEmail() {
-  $("#yolo").click(function(event) {
+  $("#email-button").click(function(event) {
     event.preventDefault();
 
     server.emit('sendEmail');
