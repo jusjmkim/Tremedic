@@ -80,7 +80,7 @@ function parseGyroscopeData(client, gyroscopeData) {
 }
 
 function setFrequencyInterval(client) {
-  setTimeOut(function() {
+  setTimeout(function() {
     sendFrequency(client);
     frequency = 0;
   }, 10000);
@@ -93,7 +93,7 @@ function sendFrequency(client) {
 function calculateChange(gyroscopeData) {
   var lastGyroscopeData = findLastData('Rotation');
   var currentSlope = gyroscopeData - lastGyroscopeData;
-  incrementFrequency(compareSlopes(currentSlope, FindLastData('Slope')));
+  incrementFrequency(compareSlopes(currentSlope, findLastData('Slope')));
   insertToDatabase(gyroscopeData, currentSlope);
 }
 
