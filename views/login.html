@@ -33,7 +33,7 @@
            <form action="" method="post">
            <input name="" type="text" placeholder="username" id="username">
            <input name="" type="password" placeholder="password" id="password">
-          <a href="live"> <input name="" type="button" value="Log In" id="login" ></a>
+           <input name="" type="button" value="Log In" id="login" >
            </form>
             <div class="back"><a href="/">← Back</a></div>
            </div>
@@ -95,7 +95,14 @@
 		$(".panel_form").hide();
 		$(".panel h1").hide();
     })
-$('h1').addClass('animated fadeInDown');
+  $('h1').addClass('animated fadeInDown');
+
+  $('#login').click(function() {
+    var pw = $('#password').val();
+    if (pw == 'password') {
+      window.location.href = "/live";
+    }
+  });
 
 });
     </script>
