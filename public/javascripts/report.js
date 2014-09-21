@@ -1,21 +1,3 @@
-/** Socket.io Functionality **/
-
-var server = io.connect(window.location.hostname);
-server.on('error', function() {
-  server.socket.connect();
-});
-
-function listenForPreviousData() {
-  server.on('previousData', function(data) {
-  var previousData = JSON.parse(data);
-  });
-}
-
-(function() {
-  // listenForFrequency();
-  listenForPreviousData();
-})();
-
 /** Chart Functionality **/
 
 $(function () {
@@ -33,16 +15,16 @@ $(function () {
 
       series: [{
           name: 'Tremor Frequency',
-          data: [[new Date(time - 100*1000), 2.7],
-                 [new Date(time - 90*1000), 2.9],
-                 [new Date(time - 80*1000), 2.4],
-                 [new Date(time - 70*1000), 2.3],
-                 [new Date(time - 60*1000), 2.0],
-                 [new Date(time - 50*1000), 2.1],
-                 [new Date(time - 40*1000), 2.13],
-                 [new Date(time - 30*1000), 2.07],
-                 [new Date(time - 20*1000), 2.18],
-                 [new Date(time - 10*1000), 2.02],
+          data: [[time*1000 - 100*1000, 2.7],
+                 [time*1000 - 90*1000, 2.9],
+                 [time*1000 - 80*1000, 2.4],
+                 [time*1000 - 70*1000, 2.3],
+                 [time*1000 - 60*1000, 2.0],
+                 [time*1000 - 50*1000, 2.1],
+                 [time*1000 - 40*1000, 2.13],
+                 [time*1000 - 30*1000, 2.07],
+                 [time*1000 - 20*1000, 2.18],
+                 [time*1000 - 10*1000, 2.02],
                 ],
           type: 'spline',
       }]
