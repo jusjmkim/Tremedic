@@ -33,7 +33,7 @@ function openClientConnection() {
 
 function listenForData(client) {
   client.on('data', function(data) {
-    parseGyroscopeData(client, JSON.parse(data));
+    //parseGyroscopeData(client, JSON.parse(data));
   });
 }
 
@@ -67,7 +67,7 @@ function parseGyroscopeData(client, gyroscopeData) {
   var rotation; //define with analysis
   checkForChange(rotation);
   sendRotationData(client);
-  insertToDatabase(rotation);
+  //insertToDatabase(rotation);
 }
 
 function checkForChange(rotation) {

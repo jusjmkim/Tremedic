@@ -169,7 +169,7 @@ input {
 }
 
 input#username {
-	background: url(../img/usernamebg.png) no-repeat 10px center #fff;
+	background: url(../images/usernamebg.png) no-repeat 10px center #fff;
 	padding: 20px 0;
 	padding-left: 100px;
 	width: 400px;
@@ -177,7 +177,7 @@ input#username {
 }
 
 input#password {
-	background: url(../img/passwordbg.png) no-repeat 10px center #fff;
+	background: url(../images/passwordbg.png) no-repeat 10px center #fff;
 	padding: 20px 0;
 	padding-left: 100px;
 	width: 400px;
@@ -185,7 +185,7 @@ input#password {
 }
 
 input#email {
-	background: url(../img/emailbg.png) no-repeat 10px center #fff;
+	background: url(../images/emailbg.png) no-repeat 10px center #fff;
 	padding: 20px 0;
 	padding-left: 100px;
 	width: 400px;
@@ -193,7 +193,7 @@ input#email {
 }
 
 input#name {
-	background: url(../img/namebackground.png) no-repeat 10px center #fff;
+	background: url(../images/namebackground.png) no-repeat 10px center #fff;
 	padding: 20px 0;
 	padding-left: 100px;
 	width: 400px;
@@ -201,7 +201,7 @@ input#name {
 }
 
 input#pencil {
-	background: url(../img/pencilbg.png) no-repeat 10px center #fff;
+	background: url(../images/pencilbg.png) no-repeat 10px center #fff;
 	padding: 20px 0;
 	padding-left: 100px;
 	width: 400px;
@@ -229,7 +229,7 @@ input#login:hover {
 
 
 .panel {
-	background: #f0f0f0 url(../img/bg.jpg) no-repeat;
+	background: #f0f0f0 url(../images/bg.jpg) no-repeat;
 	background-size: cover;
 	background-position: center;
 	padding: 120px 0;
@@ -304,14 +304,14 @@ footer {
 }
 
 h2.about {
-	background:url(../img/abouticon.png) no-repeat left;
+	background:url(../images/abouticon.png) no-repeat left;
 	width: 270px;
 	margin: 0 auto 20px auto;
 	padding: 20px 0;
 }
 
 h2.features {
-	background:url(../img/featuresicon.png) no-repeat 40px 15px;
+	background:url(../images/featuresicon.png) no-repeat 40px 15px;
 	width: 270px;
 	margin: 0 auto 20px auto;
 	padding: 20px 0;
@@ -347,17 +347,17 @@ h2.features {
 }
 
 .name {
-	background: url(../img/usersmall.png) no-repeat left;
+	background: url(../images/usersmall.png) no-repeat left;
 	padding-left: 24px;
 }
 
 .dob {
-	background: url(../img/papersmall.png) no-repeat left;
+	background: url(../images/papersmall.png) no-repeat left;
 	padding-left: 24px;
 }
 
 .phone {
-	background: url(../img/booksmall.png) no-repeat left;
+	background: url(../images/booksmall.png) no-repeat left;
 	padding-left: 24px;
 }
 
@@ -405,7 +405,7 @@ h2.features {
 	text-decoration: none;
 }
 #graph {
-	background:url(../img/testbg.jpg) no-repeat center;
+	background:url(../images/testbg.jpg) no-repeat center;
 	background-size: cover;
 	height:400px;
 }
@@ -628,7 +628,7 @@ h2.features {
     }
 
     /*
-     * Don't show links for images, or javascript/internal links
+     * Don't show links for ../images, or javascript/internal links
      */
 
     .ir a:after,
