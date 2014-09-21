@@ -4,7 +4,6 @@ var express = require('express')
     , favicon = require('serve-favicon')
     , cookieParser = require('cookie-parser')
     , bodyParser = require('body-parser')
-    , url = require('url')
     , socket = require('socket.io')
     , http = require('http')
     , mongoose = require('mongoose')
@@ -12,7 +11,6 @@ var express = require('express')
     , dotenv = require('dotenv')
     , twilio = require('twilio')
     , port = process.env.PORT || 8080
-    , router = express.Router()
     , app = express();
 
 dotenv.load();
@@ -27,18 +25,12 @@ var mongoUri = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb:/
 function openClientConnection() {
   io.sockets.on('connection', function(client) {
     listenToClient(client);
+    queryForPreviousData(client);
   });
 }
 
 function listenToClient(client) {
-  listenForPreviousData(client);
   listenForData(client);
-}
-
-function listenForPreviousData(client) {
-  client.on('previousData', function() {
-    queryForPreviousData(client);
-  });
 }
 
 function listenForData(client) {
@@ -46,7 +38,6 @@ function listenForData(client) {
     console.log(JSON.stringify(data));
   });
 }
-
 
 //access database
 function queryForPreviousData(client) {
