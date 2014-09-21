@@ -87,7 +87,7 @@ function setFrequencyInterval(client) {
 }
 
 function sendFrequency(client) {
-  client.emit('frequency', frequency);
+  client.emit('frequency', frequency / 10.0);
 }
 
 function calculateChange(gyroscopeData) {
