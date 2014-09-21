@@ -436,17 +436,45 @@ h2.features {
 	height:400px;
 }
 
-.error {
-	position: absolute;
-	top: 440px;
-	border:2px solid  #CD4949;
-	width: 60%;
-	color: #fff;
-	background: #D04A4A;
-	margin: 0 20%;
-	text-align: center;
-	padding: 30px;
-	display: none;
+.notification {
+  border-radius: 4px;
+  color: #ffffff;
+  margin: 0 auto;
+  padding: 10px;
+  position: relative;
+  width: 76%;
+}
+.notification p {
+  margin: 5px 50px;
+}
+.notification i {
+    font-size: 32px;
+    left: 0;
+    line-height: 48px;
+    margin: 3px 16px;
+    position: absolute;
+    top: 0;
+}
+.notification span {
+  background-clip: padding-box;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: -1px 0 0 0 rgba(0, 0, 0, 0.1);
+  font-size: 20px;
+  height: 100%;
+  line-height: 48px;
+  padding: 0 16px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  -webkit-background-clip: padding-box;
+}
+.notification span:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+}
+
+.notification-success {
+  background: #0099D2;
 }
 
 .secret-block {
@@ -480,11 +508,10 @@ h2.features {
 	border: 1px solid #333;
 }
 
-#chart {
+#chart, #chart-magnitude, #chart-frequency {
 	padding-top: 40px;
 	margin: 0 auto;
 	width: 80%;
-	border-bottom: 1px solid #eaeaea;
 	padding-bottom: 40px;
 }
 
