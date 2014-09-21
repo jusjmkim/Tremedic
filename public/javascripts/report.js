@@ -35,7 +35,6 @@ function getTime() {
 } 
 
 function sendDataToServer() {
-  console.log(gyroscopeData);
   server.emit('data', {'gyroscopeData': gyroscopeData});
 }
 
@@ -75,8 +74,8 @@ $(function () {
           var series = this.series[0];
           setInterval(function () {
             var x = (new Date()).getTime();
-            var y = Math.round(Math.random() * 100);
-            console.log(x, y)
+            var y = gyroscopeData.x;
+            console.log(y)
             series.addPoint([x, y], true, true);
           }, 100);
         }
