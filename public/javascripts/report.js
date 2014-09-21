@@ -25,7 +25,7 @@ function listenForPreviousData() {
 /** Chart Functionality **/
 
 $(function () {
-  // Create the chart
+  var time = (new Date()).getTime();
   $('#chart-frequency').highcharts('StockChart', {
 
       rangeSelector: {
@@ -39,7 +39,19 @@ $(function () {
 
       series: [{
           name: 'Tremor Frequency',
-          data: [],
+          data: [[time - 10*1000, 2.7],
+                 [time - 10*1000, 2.9],
+                 [time - 10*1000, 2.4],
+                 [time - 10*1000, 2.3],
+                 [time - 10*1000, 2.0],
+                 [time - 10*1000, 2.1],
+                 [time - 10*1000, 2.13],
+                 [time - 10*1000, 2.07],
+                 [time - 10*1000, 2.18],
+                 [time - 10*1000, 2.02],
+                 [time - 10*1000, 1.98],
+                 [time - 10*1000, 1.97],
+                ]
           type: 'spline',
       }]
   });
