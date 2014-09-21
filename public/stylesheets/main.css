@@ -424,13 +424,12 @@ h2.features {
 }
 
 #yolo {
-	margin: 20px auto;
+	margin: 20px auto 0px;
 	width: 170px;
 	background: none;
 	border: 1px solid #ccc;
 	border-radius: 20px;
 	padding: 10px;
-	margin-bottom: 0;
 }
 
 #yolo:hover {
@@ -446,8 +445,8 @@ h2.features {
 }
 
 
-tspan {
-	font-size: 25px;
+.highcharts-title {
+	font-size: 25px !important;
 	font-family: Montserrat;
 	letter-spacing: -1px;
 }
