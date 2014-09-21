@@ -31,6 +31,7 @@ function openClientConnection() {
   io.sockets.on('connection', function(client) {
     listenToClient(client);
     queryForPreviousData(client);
+    setFrequencyInterval(client);
   });
 }
 
@@ -76,7 +77,6 @@ function insertToDatabase(rotation, slope) {
 //analyze data
 function parseGyroscopeData(client, gyroscopeData) {
   calculateChange(gyroscopeData);
-  setFrequencyInterval(client);
 }
 
 function setFrequencyInterval(client) {
