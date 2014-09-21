@@ -122,7 +122,7 @@ function listenToSendEmail(client) {
 
 function setupSendgrid() {
   var email = new sendgrid.Email({
-    to: 'nitsuj199@gmail.com',
+    to: 'kenny.ysong@gmail.com',
     from: 'hello@tremedic.com',
     subject: 'Please check your Tremedic',
     text: "One of your Parkinson's patients has had a change in his tremor rate, and you should view his data."
