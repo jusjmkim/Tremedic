@@ -24,7 +24,7 @@ var mongoUri = process.env.MONGOLAB_URI || 'mongodb://localhost/parkinsons';
 mongoose.connect(mongoUri);
 var conn = mongoose.connection;
 
-var frequency = 0;
+var frequency = 0.0;
 
 //Listen to client
 function openClientConnection() {
@@ -82,7 +82,7 @@ function parseGyroscopeData(client, gyroscopeData) {
 function setFrequencyInterval(client) {
   setTimeout(function() {
     sendFrequency(client);
-    frequency = 0;
+    frequency = 0.0;
   }, 10000);
 }
 
@@ -98,7 +98,7 @@ function calculateChange(gyroscopeData) {
 }
 
 function compareSlopes(currentSlope, pastSlope) {
-  return (currentSlope > 0 && pastSlope > 0) || (currentSlope < 0 && pastSlope);
+  return (currentSlope > 0 && pastSlope > 0) || (currentSlope < 0 && pastSlope < 0);
 }
 
 function incrementFrequency(extrema) {
