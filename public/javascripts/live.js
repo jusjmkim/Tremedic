@@ -5,9 +5,9 @@ server.on('error', function() {
   server.socket.connect();
 });
 
-function listenForStats() {
-  server.on('rotationStats', function(data) {
-  var rotationStats = JSON.parse(data);
+function listenForFrequency() {
+  server.on('frequency', function(data) {
+    console.log(data);
   });
 }
 
@@ -34,7 +34,7 @@ function listenToSendText() {
 }
 
 (function() {
-  listenForStats();
+  listenForFrequency();
   listenForPreviousData();
 })();
 
