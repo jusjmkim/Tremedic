@@ -17,31 +17,10 @@ function listenForPreviousData() {
   });
 }
 
-function listenToSendEmail() {
-  $("#email-button").click(function(event) {
-    event.preventDefault();
-
-    server.emit('sendEmail');
-  });
-}
-
-function listenToSendText() {
-  $("#text-button").click(function(event) {
-    event.preventDefault();
-
-    server.emit('sendText');
-  });
-}
-
 (function() {
   listenForFrequency();
   listenForPreviousData();
 })();
-
-$(function() {
-  listenToSendEmail();
-  listenToSendText();
-});
 
 /** Myo Functionality **/
 

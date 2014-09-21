@@ -5,16 +5,25 @@ server.on('error', function() {
   server.socket.connect();
 });
 
-function listenForPreviousData() {
-  server.on('previousData', function(data) {
-  var previousData = JSON.parse(data);
+/** Twilio and Sendgrid Functionality **/
+function listenToSendEmail() {
+  $("#email-button").click(function(event) {
+    event.preventDefault();
+    server.emit('sendEmail', {});
   });
 }
 
-(function() {
-  listenForFrequency();
-  listenForPreviousData();
-})();
+function listenToSendText() {
+  $("#text-button").click(function(event) {
+    event.preventDefault();
+    server.emit('sendText', {});
+  });
+}
+
+$(function() {
+  listenToSendEmail();
+  listenToSendText();
+});
 
 /** Chart Functionality **/
 
